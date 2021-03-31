@@ -11,9 +11,14 @@ const serviceUUID = "a10a9d6e-9075-11eb-a8b3-0242ac130003"
 function setup() {
   createCanvas(500, 600, WEBGL);
   myBLE = new p5ble();
-  myBLE.connect("swordSensorService"); 
+  const connectButton = createButton('Connect')
+  connectButton.mousePressed(connectToBle);
 }
 
+function connectToBle() {
+  // Connect to a device by passing the service UUID
+  myBLE.connect(serviceUuid, gotCharacteristics);
+}
 // A function that will be called once got characteristics
 function gotCharacteristics(error, characteristics) {
   if (error) console.log('error: ', error);
