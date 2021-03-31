@@ -32,14 +32,28 @@ function gotCharacteristics(error, characteristics) {
   pitchCharacteristic = characteristics[1];
   rollCharacteristic = characteristics[2];
   
-  myBLE.read(headingCharacteristic, heading);
-  myBLE.read(pitchCharacteristic, pitch);
-  myBLE.read(rollCharacteristic, roll);
+  myBLE.read(headingCharacteristic, 'float32', gotValue('heading'));
+  myBLE.read(pitchCharacteristic, gotValue('pitch'));
+  myBLE.read(rollCharacteristic, gotValue('roll'));
   // Check if myBLE is connected
   isConnected = myBLE.isConnected();
 
   // Add a event handler when the device is disconnected
   myBLE.onDisconnected(onDisconnected)
+}
+
+function gotValue(error, value, type) {
+  if (error) console.log('error: ', error);
+  console.log('value: ', value, 'type', type);
+  switc (type){
+     case 'heading': 
+      heading = value;
+     case 'pitch': 
+      pitch = value;
+     case 'roll': 
+      roll = value;
+  }
+  myBLE.read(headingCharacteristic, 'float32', gotValue(type));
 }
 
 function onDisconnected() {
