@@ -31,7 +31,7 @@ function gotCharacteristics(error, characteristics) {
   myBLE.onDisconnected(onDisconnected)
 }
 
-onDisconnected(){
+function onDisconnected() {
   isConnected = false;
 }
  
