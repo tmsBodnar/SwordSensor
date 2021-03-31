@@ -1,6 +1,7 @@
 /// <reference path="TSDef/p5.global-mode.d.ts" />
 
 "use strict";
+
 // orientation variables:
 let heading = 0.0;
 let pitch = 0.0;
