@@ -7,6 +7,7 @@ let pitch = 0.0;
 let roll = 0.0;
 let myBLE;
 const serviceUUID = "a10a9d6e-9075-11eb-a8b3-0242ac130003"
+isConnected = false;
 
 function setup() {
   createCanvas(500, 600, WEBGL);
@@ -17,7 +18,7 @@ function setup() {
 
 function connectToBle() {
   // Connect to a device by passing the service UUID
-  myBLE.connect(serviceUuid, gotCharacteristics);
+  myBLE.connect(serviceUUID, gotCharacteristics);
 }
 // A function that will be called once got characteristics
 function gotCharacteristics(error, characteristics) {
