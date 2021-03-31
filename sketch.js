@@ -8,6 +8,12 @@ let pitch = 0.0;
 let roll = 0.0;
 let myBLE;
 const serviceUUID = "a10a9d6e-9075-11eb-a8b3-0242ac130003"
+let headingCharacteristic;
+let pitchCharacteristic;
+let rollCharacteristic;
+let heading;
+let pitch;
+let roll;
 let isConnected = false;
 
 function setup() {
@@ -25,7 +31,13 @@ function connectToBle() {
 function gotCharacteristics(error, characteristics) {
   if (error) console.log('error: ', error);
   console.log('characteristics: ', characteristics);
-
+  headingCharacteristic = characteristics[0];
+  pitchCharacteristic = characteristics[1];
+  rollCharacteristic = characteristics[2];
+  
+  myBLE.read(headingCharacteristic, heading);
+  myBLE.read(pitchCharacteristic, pitch);
+  myBLE.read(rollCharacteristic, roll);
   // Check if myBLE is connected
   isConnected = myBLE.isConnected();
 
