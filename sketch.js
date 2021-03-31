@@ -8,7 +8,7 @@ let pitch = 0.0;
 let roll = 0.0;
 let myBLE;
 const serviceUUID = "a10a9d6e-9075-11eb-a8b3-0242ac130003"
-isConnected = false;
+let isConnected = false;
 
 function setup() {
   createCanvas(500, 600, WEBGL);
