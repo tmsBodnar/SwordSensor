@@ -45,7 +45,7 @@ function gotCharacteristics(error, characteristics) {
 function gotValue(error, value, type) {
   if (error) console.log('error: ', error);
   console.log('value: ', value, 'type', type);
-  switc (type){
+  switch (type){
      case 'heading': 
       heading = value;
      case 'pitch': 
