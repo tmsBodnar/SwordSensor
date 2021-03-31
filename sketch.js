@@ -11,9 +11,6 @@ const serviceUUID = "a10a9d6e-9075-11eb-a8b3-0242ac130003"
 let headingCharacteristic;
 let pitchCharacteristic;
 let rollCharacteristic;
-let heading;
-let pitch;
-let roll;
 let isConnected = false;
 
 function setup() {
