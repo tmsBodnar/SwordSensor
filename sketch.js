@@ -33,7 +33,7 @@ function gotCharacteristics(error, characteristics) {
 }
 
 function onDisconnected() {
-  isConnected = false;
+  isConnected = myBLE.isConnected();
 }
  
 //          heading = float(list[0]);
