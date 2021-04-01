@@ -26,7 +26,7 @@ function connectToBle() {
 }
 // A function that will be called once got characteristics
 function gotCharacteristics(error, characteristics) {
-  if (error) console.log('error: ', error);
+  if (error) console.log('characteristic error: ', error);
   console.log('characteristics: ', characteristics);
   headingCharacteristic = characteristics[0];
   pitchCharacteristic = characteristics[1];
@@ -43,7 +43,7 @@ function gotCharacteristics(error, characteristics) {
 }
 
 function gotValue(error, value, type) {
-  if (error) console.log('error: ', error);
+  if (error) console.log('getValue error: ', error);
   console.log('value: ', value, 'type', type);
   switch (type){
      case 'heading': 
