@@ -11,8 +11,6 @@ const serviceUUID = "a10a9d6e-9075-11eb-a8b3-0242ac130003"
 let headingCharacteristic;
 let pitchCharacteristic;
 let rollCharacteristic;
-let isConnected = false;
-let chars;
 
 function setup() {
   createCanvas(500, 600, WEBGL);
@@ -28,8 +26,6 @@ function connectToBle() {
 // A function that will be called once got characteristics
 function gotCharacteristics(error, characteristics) {
   if (error) console.log('characteristic error: ', error);
-  console.log('characteristics: ', characteristics);
-  chars = characteristics;
   for (let i = 0; i < characteristics.length; i++) {
     if (i == 0) {
       headingCharacteristic = characteristics[i];
@@ -49,25 +45,17 @@ function gotCharacteristics(error, characteristics) {
 }
 
 function handleHeading(data) {
-  console.log('value: ', data, 'char: ', chars[0]);
+  console.log('heading: ', data);
   heading = data;
 }
 function handlePitch(data) {
-  console.log('value: ', data, 'char: ', chars[1]);
+  console.log('pitch: ', data);
   pitch = data;
 }
 function handleRoll(data) {
-  console.log('value: ', data, 'char: ', chars[2]);
+  console.log('roll: ', data);
   roll = data;
 }
-
-function onDisconnected() {
-  isConnected = myBLE.isConnected();
-}
- 
-//          heading = float(list[0]);
-//          pitch = float(list[1]);
-//          roll = float(list[2]);
 
 function draw() {
     background(255); // set background to white
