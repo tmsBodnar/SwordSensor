@@ -12,6 +12,7 @@ let headingCharacteristic;
 let pitchCharacteristic;
 let rollCharacteristic;
 let isConnected = false;
+let chars;
 
 function setup() {
   createCanvas(500, 600, WEBGL);
@@ -28,6 +29,7 @@ function connectToBle() {
 function gotCharacteristics(error, characteristics) {
   if (error) console.log('characteristic error: ', error);
   console.log('characteristics: ', characteristics);
+  chars = characteristics;
   for (let i = 0; i < characteristics.length; i++) {
     if (i == 0) {
       headingCharacteristic = characteristics[i];
@@ -47,17 +49,17 @@ function gotCharacteristics(error, characteristics) {
 }
 
 function handleHeading(data) {
-  console.log('value: ', data, 'char: ', characteristics[0]);
+  console.log('value: ', data, 'char: ', chars[0]);
   heading = data;
   myBLE.read(headingCharacteristic, 'float32', gotHeadingValue());
 }
 function handlePitch(data) {
-  console.log('value: ', data, 'char: ', characteristic[1]);
+  console.log('value: ', data, 'char: ', chars[1]);
   pitch = data;
   myBLE.read(headingCharacteristic, 'float32', gotPitchValue());
 }
 function handleRoll(data) {
-  console.log('value: ', data, 'char: ', characteristic[2]);
+  console.log('value: ', data, 'char: ', chars[2]);
   roll = data;
   myBLE.read(headingCharacteristic, 'float32', gotRollValue());
 }
