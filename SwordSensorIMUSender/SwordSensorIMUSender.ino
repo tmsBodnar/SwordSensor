@@ -60,10 +60,17 @@ void loop() {
     rollValue = filter.getRoll();
     pitchValue = filter.getPitch();
     headingValue = filter.getYaw();
+
+    Serial.print("heading: ");
+    Serial.print(headingValue);
+    Serial.print(" pitch: ");
+    Serial.print(pitchValue);
+    Serial.print(" roll: ");
+    Serial.println(rollValue);
     
     heading.writeValue(headingValue);
     pitch.writeValue(pitchValue);
     roll.writeValue(rollValue);
-    delay(500);
+    delay(50);
       }
 }

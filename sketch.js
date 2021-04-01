@@ -45,16 +45,16 @@ function gotCharacteristics(error, characteristics) {
 }
 
 function handleHeading(data) {
-  console.log('heading: ', data);
-  heading = data;
+  console.log('heading: ', data.toFixed(2));
+  heading = data.toFixed(2);
 }
 function handlePitch(data) {
-  console.log('pitch: ', data);
-  pitch = data;
+  console.log('pitch: ', data.toFixed(2));
+  pitch = data.toFixed(2);
 }
 function handleRoll(data) {
-  console.log('roll: ', data);
-  roll = data;
+  console.log('roll: ', data.toFixed(2));
+  roll = data.toFixed(2);
 }
 
 function draw() {
