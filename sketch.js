@@ -28,36 +28,40 @@ function connectToBle() {
 function gotCharacteristics(error, characteristics) {
   if (error) console.log('characteristic error: ', error);
   console.log('characteristics: ', characteristics);
-  headingCharacteristic = characteristics[0];
-  pitchCharacteristic = characteristics[1];
-  rollCharacteristic = characteristics[2];
-  
-  myBLE.read(headingCharacteristic, 'float64', gotHeadingValue);
-  myBLE.read(pitchCharacteristic, 'float64', gotPitchValue);
-  myBLE.read(rollCharacteristic, 'float64', gotValue);
-  // Check if myBLE is connected
-  isConnected = myBLE.isConnected();
-
-  // Add a event handler when the device is disconnected
-  myBLE.onDisconnected(onDisconnected)
+  for (let i = 0; i < characteristics.length; i++) {
+    if (i == 0) {
+      headingCharacteristic = characteristics[i];
+      // Set datatype to 'custom', p5.ble.js won't parse the data, will return data as it is.
+      myBLE.startNotifications(headingCharacteristic, handleHeading, 'custom');
+    } else if (i == 1) {
+      pitchCharacteristic = characteristics[i];
+      myBLE.startNotifications(pitchCharacteristic, handlePitch, 'custom');
+    } else if (i == 2) {
+      rollCharacteristic = characteristics[i];
+      myBLE.startNotifications(rollCharacteristic, handleRoll, 'custom');
+    }  
+    else {
+      console.log("characteristic doesn't match.");
+    }
+  }
 }
 
-function gotHeadingValue(error, value) {
-  if (error) console.log('getHeadingValue error: ', error, value);
-  console.log('value: ', value, 'char: ', cha);
-  heading = value;
+function handleHeading(data) {
+  if (error) console.log('getHeadingValue error: ', error, data);
+  console.log('value: ', data, 'char: ', characteristics[0]);
+  heading = data;
   myBLE.read(headingCharacteristic, 'float32', gotHeadingValue());
 }
-function gotPitchValue(error, value) {
-  if (error) console.log('getPitchValue error: ', error, value);
-  console.log('value: ', value, 'char: ', cha);
-  pitch = value;
+function handlePitch(data) {
+  if (error) console.log('getPitchValue error: ', error, data);
+  console.log('value: ', data, 'char: ', characteristic[1]);
+  pitch = data;
   myBLE.read(headingCharacteristic, 'float32', gotPitchValue());
 }
-function gotRollValue(error, value) {
-  if (error) console.log('getRollValue error: ', error, value);
-  console.log('value: ', value, 'char: ', cha);
-  roll = value;
+function handleRoll(data) {
+  if (error) console.log('getRollValue error: ', error, data);
+  console.log('value: ', data, 'char: ', characteristic[2]);
+  roll = data;
   myBLE.read(headingCharacteristic, 'float32', gotRollValue());
 }
 
