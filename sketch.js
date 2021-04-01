@@ -32,9 +32,9 @@ function gotCharacteristics(error, characteristics) {
   pitchCharacteristic = characteristics[1];
   rollCharacteristic = characteristics[2];
   
-  myBLE.read(headingCharacteristic, 'float32', gotValue('heading'));
-  myBLE.read(pitchCharacteristic, gotValue('pitch'));
-  myBLE.read(rollCharacteristic, gotValue('roll'));
+  myBLE.read(headingCharacteristic, 'float32', gotHeadingValue());
+  myBLE.read(pitchCharacteristic, 'float32', gotValue);
+  myBLE.read(rollCharacteristic, 'float32', gotValue);
   // Check if myBLE is connected
   isConnected = myBLE.isConnected();
 
@@ -42,9 +42,13 @@ function gotCharacteristics(error, characteristics) {
   myBLE.onDisconnected(onDisconnected)
 }
 
-function gotValue(error, value, type) {
-  if (error) console.log('getValue error: ', error, value, type);
-  console.log('value: ', value, 'type', type);
+function gotHeadingValue(){
+  gotValue();
+}
+
+function gotValue(error, value) {
+  if (error) console.log('getValue error: ', error, value);
+  console.log('value: ', value);
   switch (type){
      case 'heading': 
       heading = value;
@@ -53,7 +57,7 @@ function gotValue(error, value, type) {
      case 'roll': 
       roll = value;
   }
-  myBLE.read(headingCharacteristic, 'float32', gotValue(type));
+  myBLE.read(headingCharacteristic, 'float32', gotValue);
 }
 
 function onDisconnected() {
