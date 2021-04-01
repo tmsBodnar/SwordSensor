@@ -32,13 +32,13 @@ function gotCharacteristics(error, characteristics) {
     if (i == 0) {
       headingCharacteristic = characteristics[i];
       // Set datatype to 'custom', p5.ble.js won't parse the data, will return data as it is.
-      myBLE.startNotifications(headingCharacteristic, handleHeading, 'custom');
+      myBLE.startNotifications(headingCharacteristic, handleHeading, 'float32');
     } else if (i == 1) {
       pitchCharacteristic = characteristics[i];
-      myBLE.startNotifications(pitchCharacteristic, handlePitch, 'custom');
+      myBLE.startNotifications(pitchCharacteristic, handlePitch, 'float32');
     } else if (i == 2) {
       rollCharacteristic = characteristics[i];
-      myBLE.startNotifications(rollCharacteristic, handleRoll, 'custom');
+      myBLE.startNotifications(rollCharacteristic, handleRoll, 'float32');
     }  
     else {
       console.log("characteristic doesn't match.");
@@ -47,19 +47,16 @@ function gotCharacteristics(error, characteristics) {
 }
 
 function handleHeading(data) {
-  if (error) console.log('getHeadingValue error: ', error, data);
   console.log('value: ', data, 'char: ', characteristics[0]);
   heading = data;
   myBLE.read(headingCharacteristic, 'float32', gotHeadingValue());
 }
 function handlePitch(data) {
-  if (error) console.log('getPitchValue error: ', error, data);
   console.log('value: ', data, 'char: ', characteristic[1]);
   pitch = data;
   myBLE.read(headingCharacteristic, 'float32', gotPitchValue());
 }
 function handleRoll(data) {
-  if (error) console.log('getRollValue error: ', error, data);
   console.log('value: ', data, 'char: ', characteristic[2]);
   roll = data;
   myBLE.read(headingCharacteristic, 'float32', gotRollValue());
