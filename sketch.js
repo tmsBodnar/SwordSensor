@@ -51,17 +51,14 @@ function gotCharacteristics(error, characteristics) {
 function handleHeading(data) {
   console.log('value: ', data, 'char: ', chars[0]);
   heading = data;
-  myBLE.read(headingCharacteristic, 'float32', gotHeadingValue());
 }
 function handlePitch(data) {
   console.log('value: ', data, 'char: ', chars[1]);
   pitch = data;
-  myBLE.read(headingCharacteristic, 'float32', gotPitchValue());
 }
 function handleRoll(data) {
   console.log('value: ', data, 'char: ', chars[2]);
   roll = data;
-  myBLE.read(headingCharacteristic, 'float32', gotRollValue());
 }
 
 function onDisconnected() {
