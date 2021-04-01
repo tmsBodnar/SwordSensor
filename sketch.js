@@ -70,7 +70,6 @@ function onDisconnected() {
 //          roll = float(list[2]);
 
 function draw() {
-  if (isConnected) {
     background(255); // set background to white
     push();          // begin object to draw
     // variables for matrix translation:
@@ -88,7 +87,6 @@ function draw() {
     // draw arduino board:
     drawArduino();
     pop();           // end of object
-  }
 }
 // draws the Arduino Nano:
 function drawArduino() {
