@@ -43,7 +43,7 @@ function gotCharacteristics(error, characteristics) {
 }
 
 function gotValue(error, value, type) {
-  if (error) console.log('getValue error: ', error);
+  if (error) console.log('getValue error: ', error, value, type);
   console.log('value: ', value, 'type', type);
   switch (type){
      case 'heading': 
