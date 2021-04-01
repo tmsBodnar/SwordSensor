@@ -32,9 +32,9 @@ function gotCharacteristics(error, characteristics) {
   pitchCharacteristic = characteristics[1];
   rollCharacteristic = characteristics[2];
   
-  myBLE.read(headingCharacteristic, 'float32', gotHeadingValue());
-  myBLE.read(pitchCharacteristic, 'float32', gotValue);
-  myBLE.read(rollCharacteristic, 'float32', gotValue);
+  myBLE.read(headingCharacteristic, 'float64', gotHeadingValue);
+  myBLE.read(pitchCharacteristic, 'float64', gotPitchValue);
+  myBLE.read(rollCharacteristic, 'float64', gotValue);
   // Check if myBLE is connected
   isConnected = myBLE.isConnected();
 
@@ -42,14 +42,23 @@ function gotCharacteristics(error, characteristics) {
   myBLE.onDisconnected(onDisconnected)
 }
 
-function gotHeadingValue(){
-  gotValue();
+function gotHeadingValue(error, value) {
+  if (error) console.log('getHeadingValue error: ', error, value);
+  console.log('value: ', value, 'char: ', cha);
+  heading = value;
+  myBLE.read(headingCharacteristic, 'float32', gotHeadingValue());
 }
-
-function gotValue(error, value) {
-  if (error) console.log('getValue error: ', error, value);
-  console.log('value: ', value);
-  myBLE.read(headingCharacteristic, 'float32', gotValueHeadingValue());
+function gotPitchValue(error, value) {
+  if (error) console.log('getPitchValue error: ', error, value);
+  console.log('value: ', value, 'char: ', cha);
+  pitch = value;
+  myBLE.read(headingCharacteristic, 'float32', gotPitchValue());
+}
+function gotRollValue(error, value) {
+  if (error) console.log('getRollValue error: ', error, value);
+  console.log('value: ', value, 'char: ', cha);
+  roll = value;
+  myBLE.read(headingCharacteristic, 'float32', gotRollValue());
 }
 
 function onDisconnected() {
