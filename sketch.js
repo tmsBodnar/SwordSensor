@@ -49,15 +49,7 @@ function gotHeadingValue(){
 function gotValue(error, value) {
   if (error) console.log('getValue error: ', error, value);
   console.log('value: ', value);
-  switch (type){
-     case 'heading': 
-      heading = value;
-     case 'pitch': 
-      pitch = value;
-     case 'roll': 
-      roll = value;
-  }
-  myBLE.read(headingCharacteristic, 'float32', gotValue);
+  myBLE.read(headingCharacteristic, 'float32', gotValueHeadingValue());
 }
 
 function onDisconnected() {
