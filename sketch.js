@@ -11,7 +11,7 @@ let myBLE;
 const serviceUUID = "a10a9d6e-9075-11eb-a8b3-0242ac130003"
 let valueCharacteristic;
 let incoming;
-let byteLength		= 20;
+let byteLength = 20;
 
 
 function setup() {
@@ -43,6 +43,7 @@ function handleValue(data) {
 
 		//concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
 		for(var i=0; i<byteLength; i++){
+      console.log('loop',incoming[i]);
 			str = str + String.fromCharCode(incoming[i]);
 		}
 		var imu = str.split(',');

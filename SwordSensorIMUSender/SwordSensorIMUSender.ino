@@ -14,7 +14,7 @@ float headingValue = 0.0;
 
 // bluetooth values
 BLEService swordSensorService("a10a9d6e-9075-11eb-a8b3-0242ac130003");
-BLECharacteristic values("2d1946ee-93ae-11eb-a8b3-0242ac130003", BLERead | BLENotify, 20);
+BLEStringCharacteristic values("2d1946ee-93ae-11eb-a8b3-0242ac130003", BLERead | BLENotify, 20);
 
 // values to proper delay
 unsigned long microsPerReading, microsPrevious;
@@ -41,7 +41,7 @@ void setup() {
   BLE.advertise();
   Serial.println("Bluetooth device active, waiting for connections...");
 
-  microsPerReading = 1000000 / 10000;
+  microsPerReading = 1000000 / 1;
   microsPrevious = micros();
 }
  
@@ -73,15 +73,36 @@ void loop() {
 
       BLEDevice central = BLE.central();
         if(central){ // if a central is connected to peripheral
-            const unsigned char imuCharArray[20] = {
-                str[0],str[1],str[2],str[3],str[4],
-                str[5],str[6],str[7],str[8],str[9],
-                str[10],str[11],str[12],str[13],str[14],
-                str[15],str[16],str[17],str[18],str[19]
-            };
-            values.setValue(imuCharArray, 20);
+//            const unsigned char imuCharArray[20] = {
+//                str[0],str[1],str[2],str[3],str[4],
+//                str[5],str[6],str[7],str[8],str[9],
+//                str[10],str[11],str[12],str[13],str[14],
+//                str[15],str[16],str[17],str[18],str[19]
+//            };
+            Serial.println(str);
+//             Serial.print(imuCharArray[0]);
+//             Serial.print(imuCharArray[1]);
+//             Serial.print(imuCharArray[2]);
+//             Serial.print(imuCharArray[3]);
+//             Serial.print(imuCharArray[4]);
+//             Serial.print(imuCharArray[5]);
+//             Serial.print(imuCharArray[6]);
+//             Serial.print(imuCharArray[7]);
+//             Serial.print(imuCharArray[8]);
+//             Serial.print(imuCharArray[9]);
+//             Serial.print(imuCharArray[10]);
+//             Serial.print(imuCharArray[11]);
+//             Serial.print(imuCharArray[12]);
+//             Serial.print(imuCharArray[13]);
+//             Serial.print(imuCharArray[14]);
+//             Serial.print(imuCharArray[15]);
+//             Serial.print(imuCharArray[16]);
+//             Serial.print(imuCharArray[17]);
+//             Serial.print(imuCharArray[18]);
+//             Serial.println(imuCharArray[19]);
+            values.setValue(str);
         }
-      Serial.println(str);
+     
     }
     microsPrevious = microsPrevious + microsPerReading;
   }
