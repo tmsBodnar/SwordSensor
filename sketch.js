@@ -31,7 +31,7 @@ function gotCharacteristics(error, characteristics) {
   if (characteristics) {
     valueCharacteristic = characteristics[0];
     console.log(valueCharacteristic);
-    myBLE.readValue(valueCharacteristic, 'string', gotValue);
+    myBLE.read(valueCharacteristic, 'string', gotValue);
  //   myBLE.startNotifications(valueCharacteristic, 'string', handleValue);
   } else {
       console.log("characteristic doesn't match.");
