@@ -6,11 +6,11 @@
 let heading = 0.0;
 let pitch = 0.0;
 let roll = 0.0;
+// ble variables
 let myBLE;
 const serviceUUID = "a10a9d6e-9075-11eb-a8b3-0242ac130003"
-let headingCharacteristic;
-let pitchCharacteristic;
-let rollCharacteristic;
+let valueCharacteristic;
+let incoming;
 
 function setup() {
   createCanvas(500, 600, WEBGL);
@@ -26,35 +26,29 @@ function connectToBle() {
 // A function that will be called once got characteristics
 function gotCharacteristics(error, characteristics) {
   if (error) console.log('characteristic error: ', error);
-  for (let i = 0; i < characteristics.length; i++) {
-    if (i == 0) {
-      headingCharacteristic = characteristics[i];
-      // Set datatype to 'custom', p5.ble.js won't parse the data, will return data as it is.
-      myBLE.startNotifications(headingCharacteristic, handleHeading, 'float32');
-    } else if (i == 1) {
-      pitchCharacteristic = characteristics[i];
-      myBLE.startNotifications(pitchCharacteristic, handlePitch, 'float32');
-    } else if (i == 2) {
-      rollCharacteristic = characteristics[i];
-      myBLE.startNotifications(rollCharacteristic, handleRoll, 'float32');
-    }  
-    else {
+  if (characteristics) {
+    valueCharacteristic = characteristics[0];
+    myBLE.startNotifications(valueCharacteristic, handleValue, )
+  } else {
       console.log("characteristic doesn't match.");
-    }
   }
 }
 
-function handleHeading(data) {
+function handleValue(data) {
   console.log('heading: ', data.toFixed(2));
-  heading = data.toFixed(2);
-}
-function handlePitch(data) {
-  console.log('pitch: ', data.toFixed(2));
-  pitch = data.toFixed(2);
-}
-function handleRoll(data) {
-  console.log('roll: ', data.toFixed(2));
-  roll = data.toFixed(2);
+  incoming = data.toFixed(2);
+  var str 	= "";
+
+		//concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
+		for(var i=0; i<byteLength; i++){
+			str = str + String.fromCharCode(incoming.getUint8(i));
+		}
+		var imu = str.split(',');
+
+		//update globals
+		heading	= parseFloat(imu[0]);
+		pitch	= parseFloat(imu[1]);
+		roll = parseFloat(imu[2]);
 }
 
 function draw() {
