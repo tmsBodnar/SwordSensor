@@ -79,7 +79,7 @@ void loop() {
                 str[10],str[11],str[12],str[13],str[14],
                 str[15],str[16],str[17],str[18],str[19]
             };
-            values.writeValue(str);
+            values.writeValue("dataValue");
         }
      
     }

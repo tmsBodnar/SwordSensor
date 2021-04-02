@@ -31,10 +31,15 @@ function gotCharacteristics(error, characteristics) {
   if (characteristics) {
     valueCharacteristic = characteristics[0];
     console.log(valueCharacteristic);
-    myBLE.startNotifications(valueCharacteristic, 'string', handleValue)
+    myBLE.readValue(valueCharacteristic, 'string', gotValue);
+ //   myBLE.startNotifications(valueCharacteristic, 'string', handleValue);
   } else {
       console.log("characteristic doesn't match.");
   }
+}
+
+function gotValue(data){
+  console.log('incoming:', data);
 }
 
 function handleValue(data) {
