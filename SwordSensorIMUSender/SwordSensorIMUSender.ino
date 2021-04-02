@@ -14,7 +14,7 @@ float headingValue = 0.0;
 
 // bluetooth values
 BLEService swordSensorService("a10a9d6e-9075-11eb-a8b3-0242ac130003");
-BLECharacteristic values("2d1946ee-93ae-11eb-a8b3-0242ac130003", BLERead | BLENotify, 20);
+BLEStringCharacteristic values("2d1946ee-93ae-11eb-a8b3-0242ac130003", BLERead | BLENotify, 20);
 
 // values to proper delay
 unsigned long microsPerReading, microsPrevious;
@@ -79,7 +79,7 @@ void loop() {
                 str[10],str[11],str[12],str[13],str[14],
                 str[15],str[16],str[17],str[18],str[19]
             };
-            values.writeValue(imuCharArray, 20);
+            values.writeValue(str);
         }
      
     }
