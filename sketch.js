@@ -38,9 +38,9 @@ function gotCharacteristics(error, characteristics) {
   }
 }
 
-function gotValue(data){
+function gotValue(value){
   var str 	= "";
-  let buffer = data.buffer;
+  let buffer = value.buffer;
 	//	concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
 		 for(var i=0; i<byteLength; i++){
        console.log('loop',buffer[i]);
