@@ -39,7 +39,7 @@ function gotCharacteristics(error, characteristics) {
 }
 
 function gotValue(data){
-  console.log('incoming:', data);
+  console.log('incoming:', data.toString());
 }
 
 function handleValue(data) {
