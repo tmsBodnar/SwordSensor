@@ -40,6 +40,19 @@ function gotCharacteristics(error, characteristics) {
 
 function gotValue(data){
   console.log('incoming:', data.toString());
+  var str 	= "";
+
+	//	concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
+		 for(var i=0; i<byteLength; i++){
+       console.log('loop',data[i]);
+		 	str = str + String.fromCharCode(data[i]);
+		 }
+		var imu = str.split(',');
+
+		//update globals
+		heading	= parseFloat(imu[0]);
+		pitch	= parseFloat(imu[1]);
+		roll = parseFloat(imu[2]);
 }
 
 function handleValue(data) {
@@ -47,11 +60,11 @@ function handleValue(data) {
   incoming = data;
   var str 	= "";
 
-		//concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
-		// for(var i=0; i<byteLength; i++){
-    //   console.log('loop',incoming[i]);
-		// 	str = str + String.fromCharCode(incoming[i]);
-		// }
+	//	concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
+		 for(var i=0; i<byteLength; i++){
+       console.log('loop',incoming[i]);
+		 	str = str + String.fromCharCode(incoming[i]);
+		 }
 		var imu = str.split(',');
 
 		//update globals
