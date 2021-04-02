@@ -37,13 +37,13 @@ function gotCharacteristics(error, characteristics) {
 }
 
 function handleValue(data) {
-  console.log('heading: ', data.toFixed(2));
-  incoming = data.toFixed(2);
+  console.log('incoming: ', data);
+  incoming = data;
   var str 	= "";
 
 		//concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
 		for(var i=0; i<byteLength; i++){
-			str = str + String.fromCharCode(incoming.getUint8(i));
+			str = str + String.fromCharCode(incoming[i]);
 		}
 		var imu = str.split(',');
 
