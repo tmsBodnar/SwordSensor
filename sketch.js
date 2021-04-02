@@ -39,13 +39,12 @@ function gotCharacteristics(error, characteristics) {
 }
 
 function gotValue(data){
-  console.log('incoming:', data.toString());
   var str 	= "";
-
+  let buffer = date.buffer;
 	//	concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
 		 for(var i=0; i<byteLength; i++){
-       console.log('loop',data[i]);
-		 	str = str + String.fromCharCode(data[i]);
+       console.log('loop',buffer[i]);
+		 	str = str + String.fromCharCode(buffer[i]);
 		 }
 		var imu = str.split(',');
 
