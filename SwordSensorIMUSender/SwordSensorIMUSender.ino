@@ -67,21 +67,12 @@ void loop() {
 
     str = str + headingValue + "," + pitchValue + "," + rollValue;
 
-    
     microsNow = micros();
     if(microsNow - microsPrevious >= microsPerReading){
-
       BLEDevice central = BLE.central();
         if(central){ // if a central is connected to peripheral
-            const unsigned char imuCharArray[20] = {
-                str[0],str[1],str[2],str[3],str[4],
-                str[5],str[6],str[7],str[8],str[9],
-                str[10],str[11],str[12],str[13],str[14],
-                str[15],str[16],str[17],str[18],str[19]
-            };
             values.writeValue(str);
         }
-     
     }
     microsPrevious = microsPrevious + microsPerReading;
   }
