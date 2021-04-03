@@ -37,9 +37,8 @@ function gotCharacteristics(error, characteristics) {
 }
 
 function handleValue(value){
-  var str 	= "";
   if(value) {
-		var imu = str.split(',');
+		var imu = value.split(',');
 		heading	= parseFloat(imu[0]);
 		pitch	= parseFloat(imu[1]);
 		roll = parseFloat(imu[2]);
