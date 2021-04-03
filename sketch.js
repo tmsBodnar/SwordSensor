@@ -44,7 +44,7 @@ function gotValue(value){
   console.log("gotValue: ", typeof(value));
 	//	concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
 		 for(var i=0; i<byteLength; i++){
-       console.log('loop',value.getInt8(i);
+       console.log('loop',value.getInt8(i));
 		 	str = str + String.fromCharCode(value.getInt8(i));
 		 }
 		var imu = str.split(',');
