@@ -42,11 +42,12 @@ function handleValue(value){
   var str 	= "";
   if(value) {
   console.log("gotValue: ", typeof(value));
+  console.log(value);
 	//	concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
-		 for(var i=0; i<byteLength; i++){
-       console.log('loop',value.getInt8(i));
-		 	str = str + String.fromCharCode(value.getInt8(i));
-		 }
+		//  for(var i=0; i<byteLength; i++){
+    //    console.log('loop',value.getInt8(i));
+		//  	str = str + String.fromCharCode(value.getInt8(i));
+		//  }
 		var imu = str.split(',');
 
 		//update globals
