@@ -38,6 +38,7 @@ function gotCharacteristics(error, characteristics) {
 }
 
 function gotValue(value){
+  console.log(value)
   if(value) {
 		var imu = value.split(',');
 		heading	= parseFloat(imu[0]);
