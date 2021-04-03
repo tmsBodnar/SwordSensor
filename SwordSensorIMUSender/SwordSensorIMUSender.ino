@@ -16,9 +16,6 @@ float headingValue = 0.0;
 BLEService swordSensorService("a10a9d6e-9075-11eb-a8b3-0242ac130003");
 BLEStringCharacteristic values("2d1946ee-93ae-11eb-a8b3-0242ac130003", BLERead | BLENotify, 20);
 
-// values to proper delay
-unsigned long microsPerReading, microsPrevious;
-
 void setup() {
   Serial.begin(9600);
   if (!IMU.begin() || !BLE.begin()) {
@@ -40,15 +37,11 @@ void setup() {
 
   BLE.advertise();
   Serial.println("Bluetooth device active, waiting for connections...");
-
-  microsPerReading = 1000000 / 1;
-  microsPrevious = micros();
 }
  
 void loop() {
   float xAcc, yAcc, zAcc;
   float xGyro, yGyro, zGyro;
-  unsigned long microsNow;
   String str = "";
   BLE.poll();
   
@@ -66,14 +59,11 @@ void loop() {
     headingValue = filter.getYaw();
 
     str = str + headingValue + "," + pitchValue + "," + rollValue;
-
-    microsNow = micros();
-    if(microsNow - microsPrevious >= microsPerReading){
-      BLEDevice central = BLE.central();
-        if(central){ // if a central is connected to peripheral
-            values.writeValue(str);
-        }
-    }
-    microsPrevious = microsPrevious + microsPerReading;
+    
+    BLEDevice central = BLE.central();
+      if (central) { // if a central is connected to peripheral
+          values.writeValue(str);
+          Serial.println(str);
+      }
   }
 }
