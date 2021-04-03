@@ -40,11 +40,12 @@ function gotCharacteristics(error, characteristics) {
 
 function gotValue(value){
   var str 	= "";
+  if(value) {
   console.log("gotValue: ", typeof(value));
 	//	concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
 		 for(var i=0; i<byteLength; i++){
-       console.log('loop',buffer[i]);
-		 	str = str + String.fromCharCode(buffer[i]);
+       console.log('loop',value.getInt8(i);
+		 	str = str + String.fromCharCode(value.getInt8(i));
 		 }
 		var imu = str.split(',');
 
@@ -52,7 +53,8 @@ function gotValue(value){
 		heading	= parseFloat(imu[0]);
 		pitch	= parseFloat(imu[1]);
 		roll = parseFloat(imu[2]);
-}
+    }
+  }
 
 function draw() {
     background(255); // set background to white
