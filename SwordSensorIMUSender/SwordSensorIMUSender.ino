@@ -1,9 +1,11 @@
 #include "Arduino_LSM9DS1.h"
-#include "MadgwickAHRS.h"
+// #include "MadgwickAHRS.h"
 #include "ArduinoBLE.h"
+#include "SensorFusion.h" //SF
+SF fusion;
  
 // initialize a Madgwick filter:
-Madgwick filter;
+// Madgwick filter;
 // sensor's sample rate is fixed at 104 Hz:
 const float sensorRate = 104.00;
  
@@ -16,6 +18,8 @@ float headingValue = 0.0;
 BLEService swordSensorService("a10a9d6e-9075-11eb-a8b3-0242ac130003");
 BLEStringCharacteristic values("2d1946ee-93ae-11eb-a8b3-0242ac130003", BLERead | BLENotify, 20);
 
+float deltat;
+
 void setup() {
   Serial.begin(9600);
   if (!IMU.begin() || !BLE.begin()) {
@@ -27,7 +31,7 @@ void setup() {
     }
     while (true);
   }
-  filter.begin(sensorRate);
+//  filter.begin(sensorRate);
 
   //start bluetooth
   BLE.setLocalName("SwordSensor");
@@ -42,6 +46,7 @@ void setup() {
 void loop() {
   float xAcc, yAcc, zAcc;
   float xGyro, yGyro, zGyro;
+  float xMag, yMag, zMag;
   String str = "";
   BLE.poll();
   
@@ -49,14 +54,21 @@ void loop() {
     // read accelerometer and gyrometer:
     IMU.readAcceleration(xAcc, yAcc, zAcc);
     IMU.readGyroscope(xGyro, yGyro, zGyro);
+    IMU.readMagneticField(xMag, yMag, zMag);
        
     // update the filter, which computes orientation:
-    filter.updateIMU(xGyro, yGyro, zGyro, xAcc, yAcc, zAcc);
-       
+    // filter.update(xGyro, yGyro, zGyro, xAcc, yAcc, zAcc, -xMag, yMag, zMag);
+
+    deltat = fusion.deltatUpdate(); 
+    fusion.MahonyUpdate(xGyro, yGyro, zGyro, xAcc, yAcc, zAcc, deltat);  
     // print the heading, pitch and roll
-    rollValue = filter.getRoll();
-    pitchValue = filter.getPitch();
-    headingValue = filter.getYaw();
+    // rollValue = filter.getRoll();
+    // pitchValue = filter.getPitch();
+    // headingValue = filter.getYaw();
+
+    pitchValue = fusion.getPitch();
+    rollValue = fusion.getRoll();    //you could also use getRollRadians() ecc
+    headingValue = fusion.getYaw();
 
     str = str + headingValue + "," + pitchValue + "," + rollValue;
     

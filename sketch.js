@@ -42,6 +42,7 @@ function handleValue(value){
 		heading	= parseFloat(imu[0]);
 		pitch	= parseFloat(imu[1]);
 		roll = parseFloat(imu[2]);
+    console.log(heading, pitch, roll);
     }
   }
 
