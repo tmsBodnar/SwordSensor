@@ -30,8 +30,6 @@ function gotCharacteristics(error, characteristics) {
   if (error) console.log('characteristic error: ', error);
   if (characteristics) {
     valueCharacteristic = characteristics[0];
-    console.log(valueCharacteristic);
-  //  myBLE.read(valueCharacteristic, 'string', gotValue);
     myBLE.startNotifications(valueCharacteristic, handleValue, 'string');
   } else {
       console.log("characteristic doesn't match.");
@@ -41,19 +39,11 @@ function gotCharacteristics(error, characteristics) {
 function handleValue(value){
   var str 	= "";
   if(value) {
-  console.log("gotValue: ", typeof(value));
-  console.log(value);
-	//	concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
-		//  for(var i=0; i<byteLength; i++){
-    //    console.log('loop',value.getInt8(i));
-		//  	str = str + String.fromCharCode(value.getInt8(i));
-		//  }
 		var imu = str.split(',');
-
-		//update globals
 		heading	= parseFloat(imu[0]);
 		pitch	= parseFloat(imu[1]);
 		roll = parseFloat(imu[2]);
+    console.log(heading, ', ', pitch, ', ', roll)
     }
   }
 
