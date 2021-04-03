@@ -40,7 +40,7 @@ function gotCharacteristics(error, characteristics) {
 
 function gotValue(value){
   var str 	= "";
-  console.log("gotValue: ", typeOf(value));
+  console.log("gotValue: ", typeof(value));
 	//	concat and split string for roll, pitch, yaw (e.g. "-0.58,2.20,328.76")
 		 for(var i=0; i<byteLength; i++){
        console.log('loop',buffer[i]);
