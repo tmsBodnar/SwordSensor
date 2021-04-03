@@ -38,11 +38,12 @@ function gotCharacteristics(error, characteristics) {
 
 function handleValue(value){
   if(value) {
+    console.log(value);
 		var imu = value.split(',');
 		heading	= parseFloat(imu[0]);
 		pitch	= parseFloat(imu[1]);
 		roll = parseFloat(imu[2]);
-    console.log(heading, ', ', pitch, ', ', roll)
+    console.log(heading, pitch, roll)
     }
   }
 
