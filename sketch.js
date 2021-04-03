@@ -30,22 +30,19 @@ function gotCharacteristics(error, characteristics) {
   if (error) console.log('characteristic error: ', error);
   if (characteristics) {
     valueCharacteristic = characteristics[0];
-    myBLE.read(valueCharacteristic, gotValue, 'string');
-  //  myBLE.startNotifications(valueCharacteristic, handleValue, 'string');
+    myBLE.startNotifications(valueCharacteristic, handleValue, 'string');
   } else {
       console.log("characteristic doesn't match.");
   }
 }
 
-function gotValue(value){
-  console.log(value)
+function handleValue(value){
   if(value) {
 		var imu = value.split(',');
 		heading	= parseFloat(imu[0]);
 		pitch	= parseFloat(imu[1]);
 		roll = parseFloat(imu[2]);
     }
-  myBLE.read(valueCharacteristic, gotValue, 'string');
   }
 
 function draw() {
